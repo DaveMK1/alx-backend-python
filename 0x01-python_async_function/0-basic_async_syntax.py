@@ -2,16 +2,12 @@
 '''The basics of async
 '''
 import asyncio
-from typing import List
+import random
 
 
-task_wait_random = __import__('3-tasks').task_wait_random
-
-
-async def task_wait_n(n: int, max_delay: int) -> List[float]:
-    '''Executes task_wait_random n times.
+async def wait_random(max_delay: int = 10) -> float:
+    '''Waits for a random number of seconds.
     '''
-    wait_times = await asyncio.gather(
-        *tuple(map(lambda _: task_wait_random(max_delay), range(n)))
-    )
-    return sorted(wait_times)
+    wait_time = random.random() * max_delay
+    await asyncio.sleep(wait_time)
+    return wait_time
